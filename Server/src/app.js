@@ -5,6 +5,7 @@ import cors from "cors";
 
 import notFound from "./middlewares/notfound.js";
 import errorHandler from "./middlewares/errorHandler.js";
+import sendResponse from "./utils/apiResponse.js";
 
 const app = express();
 
@@ -23,10 +24,9 @@ app.use(
 
 // Health check route
 app.get("/api/health", (req, res) => {
-    res.status(200).json({
-        message: "Team Sync API is running",
-        success: true,
-    });
+sendResponse(res, {
+    message: "Server is healthy",
+})
 });
 
 // 404 Handler
