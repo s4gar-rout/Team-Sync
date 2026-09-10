@@ -44,3 +44,15 @@ export const getMe = async (req, res) => {
         }
     });
 };
+
+export const logout = async (req, res) => {
+    res.clearCookie("token", {
+        httpOnly: true,
+        secure: env.NODE_ENV === "production",
+        sameSite: env.NODE_ENV === "production" ? "none" : "lax",
+    });
+
+    return sendResponse(res, {
+        message: "Logout successful",
+    });
+};

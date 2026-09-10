@@ -3,7 +3,8 @@ import express from "express";
 import {
     register,
     login,
-    getMe
+    getMe,
+        logout
 } from "./auth.controller.js";
 
 import {
@@ -14,6 +15,7 @@ import {
 import validate from "../../middlewares/validate.js";
 import asyncHandler from "../../utils/asyncHandler.js";
 import authMiddleware from "../../middlewares/auth.middleware.js";
+import authorize from "../../middlewares/authorize.js";
 
 const router = express.Router();
 
@@ -33,6 +35,10 @@ router.get(
     "/me",
     authMiddleware,
     asyncHandler(getMe)
+);
+router.post(
+    "/logout",
+    asyncHandler(logout)
 );
 
 export default router;
