@@ -5,6 +5,10 @@ if (!process.env.PORT) {
     throw new Error("PORT is not defined in enviroment varriables")
 }
 
+if(!process.env.NODE_ENV) {
+    throw new Error("NODE_ENV is not defined in enviroment varriables")
+}
+
 if (!process.env.MONGO_URI) {
     throw new Error("MONGO_URI is not defined in enviroment varriables")
 }
@@ -15,14 +19,20 @@ if(!process.env.JWT_ACCESS_SECRET) {
 if(!process.env.JWT_REFRESH_SECRET) {
     throw new Error("JWT_REFRESH_SECRET is not defined in enviroment varriables")
 }
+
+if(!process.env.JWT_EXPIRES_IN) {
+    throw new Error("JWT_EXPIRES_IN is not defined in enviroment varriables")
+}
 if(!process.env.CLIENT_URL) {
     throw new Error("CLIENT_URL is not defined in enviroment varriables")
 }
 
 export const env ={
     PORT: process.env.PORT,
+    NODE_ENV: process.env.NODE_ENV,
     MONGO_URI: process.env.MONGO_URI,
     JWT_ACCESS_SECRET: process.env.JWT_ACCESS_SECRET,
     JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET,
+    JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN,
     CLIENT_URL: process.env.CLIENT_URL
 }

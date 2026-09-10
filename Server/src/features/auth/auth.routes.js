@@ -2,7 +2,8 @@ import express from "express";
 
 import {
     register,
-    login
+    login,
+    getMe
 } from "./auth.controller.js";
 
 import {
@@ -12,6 +13,7 @@ import {
 
 import validate from "../../middlewares/validate.js";
 import asyncHandler from "../../utils/asyncHandler.js";
+import authMiddleware from "../../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
@@ -25,6 +27,12 @@ router.post(
     "/login",
     validate(loginSchema),
     asyncHandler(login)
+);
+
+router.get(
+    "/me",
+    authMiddleware,
+    asyncHandler(getMe)
 );
 
 export default router;

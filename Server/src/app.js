@@ -9,6 +9,7 @@ import notFound from "./middlewares/notfound.js";
 import errorHandler from "./middlewares/errorHandler.js";
 
 import sendResponse from "./utils/apiResponse.js";
+import { env } from "./configs/env.js";
 
 const app = express();
 
@@ -19,7 +20,8 @@ app.use(cookieParser());
 
 app.use(
     cors({
-        origin: "*",
+        origin:env.CLIENT_URL,
+        credentials: true,
         methods: ["GET", "POST", "PUT", "DELETE"],
         allowedHeaders: ["Content-Type", "Authorization"],
     })

@@ -4,6 +4,7 @@ import {
 } from "./auth.service.js";
 
 import sendResponse from "../../utils/apiResponse.js";
+import { env } from '../../configs/env.js';
 
 export const register = async (req, res) => {
     const user = await registerUser(req.body);
@@ -20,8 +21,26 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
     const result = await loginUser(req.body);
 
+    res.cookie("token", result.token, {
+        httpOnly: true,
+        secure: env.NODE_ENV === "production",
+        sameSite: env.NODE_ENV === "production" ? "none" : "lax",
+        maxAge: 15 * 60 * 1000,
+    });
+
     return sendResponse(res, {
         message: "Login successful",
-        data: result
+        data: {
+            user: result.user
+        }
+    });
+};
+
+export const getMe = async (req, res) => {
+    return sendResponse(res, {
+        message: "User fetched successfully",
+        data: {
+            user: req.user
+        }
     });
 };
